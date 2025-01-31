@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venta de Cuentas de Netflix Premium</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            background: #000;
+            overflow-x: hidden;
+        }
+        h1, h2, h3 {
+            margin: 0;
+        }
+        a {
+            color: white;
+            text-decoration: none;
+        }
+        .section {
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .hero p {
+            font-size: 1.5rem;
+            animation: fadeIn 3s ease-in-out;
+        }
+        .hero a {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            background-color: #E50914;
+            border-radius: 5px;
+            animation: fadeIn 5s ease-in-out;
+            transition: background-color 0.3s ease;
+        }
+        .hero a:hover {
+            background-color: #f40612;
+        }
+        .features {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            width: 30%;
+            min-width: 250px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .feature:hover {
+            transform: scale(1.05);
+        }
+        .testimonials {
+            background: url('https://images.unsplash.com/photo-1464802686167-b939a6910659?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+            padding: 60px 20px;
+        }
+        .testimonial {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 600px;
+            cursor: pointer;
+        }
+        .faq {
+            background: #111;
+            padding: 60px 20px;
+        }
+        .faq-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px auto;
+            max-width: 800px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .faq-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .footer {
+            background: #000;
+            padding: 20px;
+            text-align: center;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .cursor-trail {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background-color: white;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            opacity: 0.8;
+            z-index: 1;
+        }
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        /* Estilos del menú horizontal */
+        .menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        .menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+        .menu ul li {
+            position: relative;
+        }
+        .menu ul li a {
+            color: white;
+            font-size: 1.1rem;
+            padding: 10px 15px;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+        }
+        .menu ul li a:hover {
+            background-color: #E50914;
+        }
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+        }
+        .submenu.active {
+            display: block;
+        }
+        .submenu p {
+            margin: 0;
+            padding: 10px;
+            color: white;
+            font-size: 1rem;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <!-- Efecto de partículas -->
+    <div id="particles-js"></div>
+
+    <!-- Menú horizontal -->
+    <div class="menu">
+        <ul>
+            <li><a href="#quienes-somos">Quiénes Somos</a>
+                <div class="submenu">
+                    <p>Somos Ellis Netflix, especialistas en ofrecer cuentas premium de Netflix a precios increíbles.</p>
+                </div>
+            </li>
+            <li><a href="#que-es-netflix">Qué es Netflix</a>
+                <div class="submenu">
+                    <p>Netflix es una plataforma de streaming que ofrece películas, series y documentales en alta calidad.</p>
+                </div>
+            </li>
+            <li><a href="#cuenta-premium">Qué es una Cuenta Premium</a>
+                <div class="submenu">
+                    <p>Una cuenta premium te permite disfrutar de Netflix en 4K, con múltiples usuarios y sin anuncios.</p>
+                </div>
+            </li>
+            <li><a href="#beneficios">Beneficios</a>
+                <div class="submenu">
+                    <p>Disfruta de contenido ilimitado, soporte 24/7 y acceso en múltiples dispositivos.</p>
+                </div>
+            </li>
+            <li><a href="#testimonios">Testimonios</a>
+                <div class="submenu">
+                    <p>Lee lo que nuestros clientes dicen sobre nuestro servicio.</p>
+                </div>
+            </li>
+            <li><a href="#faq">Preguntas Frecuentes</a>
+                <div class="submenu">
+                    <p>Resuelve tus dudas sobre cómo adquirir y usar tu cuenta premium.</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Sección Hero con vídeo de fondo -->
+    <div class="hero">
+        <video autoplay muted loop>
+            <source src="https://cdn.videvo.net/videvo_files/video/free/2014-12/large_watermarked/Raindrops_Videvo_preview.mp4" type="video/mp4">
+            Tu navegador no soporta vídeos HTML5.
+        </video>
+        <h1>¡Bienvenido!</h1>
+        <p>🎬✨ ¡Obtén tu Cuenta de Netflix Premium por Solo S/ 10 al Mes! ✨🎬</p>
+        <p>
+            Disfruta de todo el contenido exclusivo de Netflix
+             incluyendo películas 🎥, series 📺 y documentales 🌍 en alta calidad y sin interrupciones. 🚀</p>
+             <p>
+
+Con una cuenta Premium, tendrás:</p>
+
+   <p> Acceso ilimitado a todo el catálogo de Netflix. 🍿</p>
+    <p>Transmisión en alta calidad y sin cortes. 🎬💎</p>
+    <p>Múltiples usuarios para disfrutar con tu familia o amigos. 👨‍👩‍👧‍👦</p>
+    <p>No pierdas la oportunidad de disfrutar del mejor entretenimiento!</p>
+        <a href="https://wa.me/51901600916" target="_blank">Comprar por WhatsApp</a>
+    </div>
+
+    <!-- Sección de Características -->
+    <div class="section features">
+        <div class="feature">
+            <h3>✅ Calidad 4K HD</h3>
+            <p>Disfruta de Netflix en calidad 4K Ultra HD.</p>
+                    </div>
+        <div class="feature">
+            <h3>📱 Multiplataforma</h3>
+            <p>Usa Netflix en cualquier dispositivo.</p>
+        </div>
+        <div class="feature">
+            <h3>⚡ Soporte 24/7</h3>
+            <p>Asistencia rápida cuando la necesites.</p>
+        </div>
+    </div>
+
+    <!-- Sección de Testimonios -->
+    <div class="section testimonials">
+        <h2>Testimonios</h2>
+        <div class="testimonial">
+            <p>"¡Increíble servicio! Obtuve mi cuenta de Netflix Premium al instante."</p>
+            <p>- Juan Pérez</p>
+        </div>
+        <div class="testimonial">
+            <p>"Muy confiable y rápido. Lo recomiendo 100%."</p>
+            <p>- María Gómez</p>
+        </div>
+    </div>
+
+    <!-- Sección de Preguntas Frecuentes -->
+    <div class="section faq">
+        <h2>Preguntas Frecuentes</h2>
+        <div class="faq-item">
+            <h3>¿Cómo recibo mi cuenta?</h3>
+            <p>Te enviaremos los detalles por WhatsApp después del pago.</p>
+        </div>
+        <div class="faq-item">
+            <h3>¿Es seguro?</h3>
+            <p>Sí, garantizamos cuentas 100% funcionales y seguras.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 Venta de Cuentas Netflix Premium. Todos los derechos reservados.</p>
+    </div>
+
+    <!-- Efecto del cursor -->
+    <script>
+        const cursorTrail = [];
+        const cursorTrailLength = 20;
+
+        document.addEventListener('mousemove', (e) => {
+            const trailDot = document.createElement('div');
+            trailDot.className = 'cursor-trail';
+            trailDot.style.left = `${e.pageX}px`;
+            trailDot.style.top = `${e.pageY}px`;
+            document.body.appendChild(trailDot);
+
+            cursorTrail.push(trailDot);
+
+            if (cursorTrail.length > cursorTrailLength) {
+                const oldDot = cursorTrail.shift();
+                oldDot.remove();
+            }
+
+            cursorTrail.forEach((dot, index) => {
+                dot.style.opacity = 1 - (index / cursorTrailLength);
+            });
+        });
+    </script>
+
+    <!-- Librería Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS.load('particles-js', 'particles.json', function() {
+            console.log('Efecto de partículas cargado.');
+        });
+    </script>
+
+    <!-- Configuración de Particles.js -->
+    <script>
+        const particlesJSON = {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "repulse": {
+                        "distance": 100,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    }
+                }
+            },
+            "retina_detect": true
+        };
+
+        particlesJS('particles-js', particlesJSON);
+    </script>
+
+    <!-- Script para manejar el menú -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuItems = document.querySelectorAll('.menu ul li');
+
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Cerrar todos los submenús
+                    menuItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.querySelector('.submenu').classList.remove('active');
+                        }
+                    });
+
+                    // Abrir o cerrar el submenú del elemento clickeado
+                    const submenu = this.querySelector('.submenu');
+                    submenu.classList.toggle('active');
+                });
+            });
+
+            // Cerrar submenús al hacer clic fuera del menú
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.menu ul li')) {
+                    menuItems.forEach(item => {
+                        item.querySelector('.submenu').classList.remove('active');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
